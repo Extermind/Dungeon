@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        //setting tag for other scripts
+        this.tag = "Player";
 
         playerActions();
         
@@ -129,14 +131,12 @@ public class PlayerController : MonoBehaviour
             if (Mathf.Abs(input.x) == 1f)
             {
                 direction = new Vector3((float)input.x, 0, 0);
-                //movePoint.position += new Vector3((float)movement.x, 0, 0);
-                //_actionsPoints -= movementCostPoints;
+
             }
             if (Mathf.Abs(input.y) == 1f)
             {
                 direction = new Vector3(0,(float)input.y, 0);
-                //movePoint.position += new Vector3(0, (float)movement.y, 0);
-                //_actionsPoints -= movementCostPoints;
+               
             }
 
             //choose new direction point and set it acordlingly xD?

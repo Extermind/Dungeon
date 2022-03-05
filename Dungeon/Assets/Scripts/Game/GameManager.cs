@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject p;   // gameobject of player
     private PlayerController player;
+    private EnemyManager enemyManager;
+
     private Enemy enemy;
     public GameState gs;
 

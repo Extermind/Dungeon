@@ -164,7 +164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -247,7 +247,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &926467995
 GameObject:
@@ -292,7 +292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1300333657
 GameObject:
@@ -408,7 +408,7 @@ Transform:
   - {fileID: 1300333658}
   - {fileID: 1828883483}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1590639261
 MonoBehaviour:
@@ -427,6 +427,7 @@ MonoBehaviour:
   movementCostPoints: 5
   direction: {x: 0, y: 0, z: 0}
   movePoint: {fileID: 1828883483}
+  pressindex: 0
   PlayerState: 0
 --- !u!114 &1590639262
 MonoBehaviour:
@@ -440,12 +441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a8fde8f93f3a54d896ea74a5702771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionsPointsAmount: 30
-  actionsPoints: 0
-  movementCostPoints: 5
-  direction: {x: 0, y: 0, z: 0}
-  movePoint: {fileID: 1828883483}
-  PlayerState: 0
 --- !u!1 &1828883482
 GameObject:
   m_ObjectHideFlags: 0
