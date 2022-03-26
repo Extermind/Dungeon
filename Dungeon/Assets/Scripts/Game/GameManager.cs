@@ -1,86 +1,74 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState {
+    //Game States
+    MENU,
+    GENERATION,
+    START,  //might delete later
+    END_WIN,
+    END_LOSE,
+    //Player
+    PLAYER_TURN,
+    //Enemies
+    ENEMY_TURN, 
+    
+};
+
 public class GameManager : MonoBehaviour
 {
-    public GameObject p;   // gameobject of player
-    private PlayerController player;
-    private EnemyManager enemyManager;
+    public static GameManager instance;
+    public GameState gameState;
 
-    private Enemy enemy;
-    public GameState gs;
-
-    public enum GameState
-    {
-        DEFAULT, //should never happen
-        PLAYER_RESET,
-        PLAYER_TURN,
-        ENEMY_TURN,
-        ENEMY_RESET,
-        PLAYERS_DEATH,  //END OF GAME   
-        WIN             //win
-    }
-
+    public static event Action<GameState> OnGameStateChanged;
 
     private void Awake()
     {
-        //p = GameObject.FindGameObjectWithTag("Player");
-        player = p.GetComponent<PlayerController>();
-        gs = GameState.PLAYER_RESET;
-        
-
+        instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        //UpdateGameState(GameState.MENU);          // change when menu will be added
+        UpdateGameState(GameState.PLAYER_TURN);
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    public void UpdateGameState(GameState newGameState)
     {
-        switch (gs)
+        gameState = newGameState;
+
+        switch (gameState)
         {
-            case GameState.PLAYER_RESET:
-                player.resetActionPoints();
-                gs = GameState.PLAYER_TURN;
+            case GameState.MENU:
+                break;
+            case GameState.GENERATION:
+                break;
+            case GameState.START:
+                break;
+            case GameState.END_WIN:
+                break;
+            case GameState.END_LOSE:
                 break;
             case GameState.PLAYER_TURN:
-                player.turn();
-                if (player.PlayerState == PlayerController.PlayerStates.END_TURN)
-                {
-                    gs = GameState.ENEMY_RESET;
-                }
+                handlePlayerTurn();
                 break;
-            case GameState.ENEMY_RESET:
-                gs = GameState.ENEMY_TURN;
-                break ;
             case GameState.ENEMY_TURN:
-                //wait here 2 sec
-                Debug.Log("ENEMY TURN");
-                gs = GameState.PLAYER_RESET;
                 break;
-
-
-
-
         }
+
+        OnGameStateChanged?.Invoke(gameState);
+
+
+
     }
 
-    void DoDelayAction(float delayTime)
+    private void handlePlayerTurn()
     {
-        StartCoroutine(DelayAction(delayTime));
+        UnitManager.instance.playerReset();
+        //UnitManager.instance.playerTurn();
     }
-
-    IEnumerator DelayAction(float delayTime)
-    {
-        //Wait for the specified delay time before continuing.
-        yield return new WaitForSeconds(delayTime);
-
-        //Do the action after the delay time has finished.
-    }
-
-
 }

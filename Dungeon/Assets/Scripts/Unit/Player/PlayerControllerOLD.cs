@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerOLD : MonoBehaviour
 {
 
     [SerializeField]
@@ -18,13 +18,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 input;
     [SerializeField]
     private Vector3 direction;
-    
+
     private float moveSpeed = 5f;
     [SerializeField]
     private Transform movePoint;
+    [SerializeField]
+    private GameObject crosshair;
 
-    public int pressindex = 0;
-
+    private Vector3 playerPos;
 
     public PlayerStates PlayerState;
     public enum PlayerStates
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         if (movebtnAction.triggered)
         {
+            Debug.Log("here trigger");
             PlayerState = PlayerStates.MOVING;
         }
     }
@@ -90,6 +92,10 @@ public class PlayerController : MonoBehaviour
     {
         //setting tag for other scripts
         this.tag = "Player";
+        //getting crosshair object and setting off it visibility
+        // idk how to code it (getting an object) so it's done via inspector
+        crosshair.SetActive(false);
+
 
         playerActions();
         
@@ -120,13 +126,14 @@ public class PlayerController : MonoBehaviour
 
     public void turn()
     {
+        Debug.Log(PlayerState);
         checkTriggers();
 
         //move player
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
         
 
-        if (Vector3.Distance(transform.position, movePoint.position) <= 0.05f)
+        if (Vector3.Distance(transform.position, movePoint.position) <= 0.005f)
         {
             if (Mathf.Abs(input.x) == 1f)
             {
@@ -138,6 +145,21 @@ public class PlayerController : MonoBehaviour
                 direction = new Vector3(0,(float)input.y, 0);
                
             }
+
+            if(PlayerState == PlayerStates.IDLE)
+            {
+                playerPos = transform.position;
+            }
+
+
+            //set new pos of crosshair
+            if (direction != Vector3.zero && PlayerState == PlayerStates.IDLE)
+            {
+                crosshair.transform.position = playerPos + direction;
+                crosshair.SetActive(true);
+            }
+
+
 
             //choose new direction point and set it acordlingly xD?
             if (actionsPoints >= movementCostPoints && PlayerState == PlayerStates.MOVING)
